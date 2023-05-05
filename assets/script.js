@@ -36,10 +36,19 @@ function showSlide() {
 
 function changeDot() {
 	dot_selected.classList.remove('dot_selected');
-	const nextDot  = dots[currentIndex];
-	nextDot.classList.add('dot_selected');
+	const currentDot  = dots[currentIndex];
+	currentDot.classList.add('dot_selected');
 	const prevIndex = (currentIndex - 1 + dots.length) % dots.length;
 	dots[prevIndex].classList.remove('dot_selected');
+}
+
+function changeDotRetour () {
+	dot_selected.classList.remove('dot_selected'); // pour le dot_selected par défaut
+	currentIndex = (currentIndex - 1 + slides.length) % slides.length; 
+	prevDot = dots[currentIndex];
+	prevDot.classList.add('dot_selected');
+	dotBefore = dots[currentIndex + 1];
+	dotBefore.classList.remove('dot_selected');
 }
 
 function changeText() {
@@ -54,10 +63,10 @@ arrow_right.addEventListener("click", function() {
 })
 
 
-
 arrow_left.addEventListener("click", function() {
-	currentIndex = (currentIndex - 1 + slides.length) % slides.length; 
+	 
     showSlide(); 
 	changeText();
+	changeDotRetour();
 })
 
