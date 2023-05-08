@@ -19,36 +19,41 @@ const slides = [
 
 const arrow_right = document.querySelector(".arrow_right")
 const arrow_left = document.querySelector(".arrow_left")
-const dots = document.querySelectorAll(".dot");
-const dot_selected = document.querySelector(".dot_selected");
+const dots = document.querySelector(".dots");
 const banner_img = document.querySelector(".banner-img");
 
 
 let div = document.getElementById("banner")
 let paragraph = div.querySelector("p")
 
+var dotArray = [];
+var dot_selected;
 
-let currentIndex = 0;
+function addDot() {
+	for (var i = 0; i < slides.length; i++) {
+		var dot = document.createElement("p");
+		dots.appendChild(dot);
+		dot.classList.add("dot");
+		dotArray.push(dot);
+	};
+}
+
+addDot();
+
+var dot_selected = dotArray[0];
+dot_selected.classList.add("dot_selected");
+let currentIndex = dotArray.indexOf(dot_selected);
+
+function changeDot(isNext) {
+    const increment = isNext ? 1 : -1;
+    dot_selected.classList.remove("dot_selected");
+    currentIndex = (currentIndex + increment + slides.length) % slides.length;
+    dot_selected = dotArray[currentIndex];
+    dot_selected.classList.add("dot_selected");
+}
 
 function showSlide() {
-	banner_img.src = slides[currentIndex].image;
-}
-
-function changeDot() {
-	dot_selected.classList.remove('dot_selected'); // pour le dot_selected par défaut
-	const currentDot = dots[currentIndex];
-	currentDot.classList.add('dot_selected');
-	const prevIndex = (currentIndex - 1 + dots.length) % dots.length;
-	dots[prevIndex].classList.remove('dot_selected');
-}
-
-function changeDotRetour() {
-	dot_selected.classList.remove('dot_selected'); // pour le dot_selected par défaut
-	currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-	const prevDot = dots[currentIndex];
-	prevDot.classList.add('dot_selected');
-	const dotBefore = dots[currentIndex + 1];
-	dotBefore.classList.remove('dot_selected');
+	banner_img.src = "assets/images/slideshow/" + slides[currentIndex].image;
 }
 
 function changeText() {
@@ -56,17 +61,16 @@ function changeText() {
 }
 
 arrow_right.addEventListener("click", function () {
-	currentIndex = (currentIndex + 1) % slides.length;
+	changeDot(true);
 	showSlide();
-	changeDot();
 	changeText();
 })
 
 
 arrow_left.addEventListener("click", function () {
-
+	changeDot(false)
 	showSlide();
 	changeText();
-	changeDotRetour();
+	
 })
 
