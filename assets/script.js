@@ -45,11 +45,16 @@ dot_selected.classList.add("dot_selected");
 let currentIndex = dotArray.indexOf(dot_selected);
 
 function changeDot(isNext) {
-    const increment = isNext ? 1 : -1;
-    dot_selected.classList.remove("dot_selected");
-    currentIndex = (currentIndex + increment + slides.length) % slides.length;
-    dot_selected = dotArray[currentIndex];
-    dot_selected.classList.add("dot_selected");
+	const increment = isNext ? 1 : -1;
+	dot_selected.classList.remove("dot_selected");
+	currentIndex += increment;
+	if (currentIndex === slides.length) {
+		currentIndex = 0;
+	} else if (currentIndex < 0) {
+		currentIndex =  slides.length - 1;
+	}
+	dot_selected = dotArray[currentIndex];
+	dot_selected.classList.add("dot_selected");
 }
 
 function showSlide() {
@@ -71,6 +76,6 @@ arrow_left.addEventListener("click", function () {
 	changeDot(false)
 	showSlide();
 	changeText();
-	
+
 })
 
