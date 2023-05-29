@@ -21,17 +21,14 @@ const arrow_right = document.querySelector(".arrow_right")
 const arrow_left = document.querySelector(".arrow_left")
 const dots = document.querySelector(".dots");
 const banner_img = document.querySelector(".banner-img");
+const div = document.getElementById("banner")
+const paragraph = div.querySelector("p")
 
-
-let div = document.getElementById("banner")
-let paragraph = div.querySelector("p")
-
-var dotArray = [];
-var dot_selected;
+let dotArray = [];
 
 function addDot() {
-	for (var i = 0; i < slides.length; i++) {
-		var dot = document.createElement("p");
+	for (let i = 0; i < slides.length; i++) {
+		let dot = document.createElement("p");
 		dots.appendChild(dot);
 		dot.classList.add("dot");
 		dotArray.push(dot);
@@ -40,7 +37,7 @@ function addDot() {
 
 addDot();
 
-var dot_selected = dotArray[0];
+let dot_selected = dotArray[0];
 dot_selected.classList.add("dot_selected");
 let currentIndex = dotArray.indexOf(dot_selected);
 
